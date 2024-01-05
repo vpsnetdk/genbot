@@ -34,7 +34,7 @@ msj_fun
 ChatADM () {
 local bot_retorno=" $LINE\n"
           bot_retorno+=" ENVIA TU ARCHIVO O COMPROBANTE AL ADM\n"
-          bot_retorno+=" MODELO EN EVOLUCCION DE @ChumoGH\n"
+          bot_retorno+=" MODELO EN EVOLUCCION DE @drowkid01\n"
           bot_retorno+="\n"
           bot_retorno+="$LINE\n"
 msj_fun
@@ -49,24 +49,24 @@ unset idchek
 [[ -z ${idchek} ]] && idchek="${callback_query_from_id}"
 [[ -z "$(cat /etc/ADM-db/User-ID | grep ${idchek} )" ]] && {
 	[[ "$(cat /etc/ADM-db/Admin-ID)" == "${idchek}" ]] && {
-	cat /var/www/html/ChumoGH/checkIP.log > /tmp/ips
+	cat /var/www/html/drowkid01/checkIP.log > /tmp/ips
 	echo -e " $(cat /tmp/ips | awk '{print $3}' | uniq)" > /tmp/ipchek
 	lsid=$(cat -n /tmp/ipchek)
 	local bot_retorno=" $LINE\n"
           bot_retorno+='  - ULTIMOS IP´S UNICOS CAPTURADOS  \n'
-          bot_retorno+="  -  TIENES $(cat /var/www/html/ChumoGH/checkIP.log | wc -l) IP´s CAPTURADAS \n"
+          bot_retorno+="  -  TIENES $(cat /var/www/html/drowkid01/checkIP.log | wc -l) IP´s CAPTURADAS \n"
           bot_retorno+="$LINE\n"
           bot_retorno+=" ${lsid}\n"
           bot_retorno+="$LINE\n"
 			}
 
 } || {
-cat /var/www/html/ChumoGH/checkIP.log | grep "${idchek}" > /tmp/ips
+cat /var/www/html/drowkid01/checkIP.log | grep "${idchek}" > /tmp/ips
 echo -e " $(cat /tmp/ips | awk '{print $3}' | uniq)" > /tmp/ipchek
 lsid=$(cat -n /tmp/ipchek)
 local bot_retorno=" $LINE\n"
           bot_retorno+='  - ULTIMOS IP´S UNICOS CAPTURADOS  \n'
-          bot_retorno+="  -  TIENES $(cat /var/www/html/ChumoGH/checkIP.log | grep ${idchek} | wc -l) IP´s CAPTURADAS DE TUS GENERADAS \n"
+          bot_retorno+="  -  TIENES $(cat /var/www/html/drowkid01/checkIP.log | grep ${idchek} | wc -l) IP´s CAPTURADAS DE TUS GENERADAS \n"
           bot_retorno+="$LINE\n"
           bot_retorno+=" ${lsid}\n"
           bot_retorno+="$LINE\n"

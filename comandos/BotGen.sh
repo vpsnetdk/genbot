@@ -164,7 +164,7 @@ send_admin(){
 
 	bot_retorno="$LINE\n"
 	bot_retorno+="     🔰 Bot generador de key 🔰\n"
-	bot_retorno+="           ⚜ by @ChumoGH ⚜\n"
+	bot_retorno+="           ⚜ by @drowkid01 ⚜\n"
 	bot_retorno+="$LINE\n"
 	bot_retorno+="      ✅ ID enviado al admin ✅\n"
 	bot_retorno+="$LINE"

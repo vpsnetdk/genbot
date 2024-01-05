@@ -54,13 +54,13 @@ bot_retorno+=" 🗝️  <pre>${keyfinal}</pre> 🗝️\n"
 bot_retorno+="$LINE\n"
 bot_retorno+="  🛡️  𝙸𝚗𝚜𝚝𝚊𝚕𝚊𝚍𝚘𝚛  𝙾𝚏𝚒𝚌𝚒𝚊𝚕 $(cat < /etc/SCRIPT/v-local.log) 🔐 \n"
 bot_retorno+="$LINE\n"
-bot_retorno+='<pre>apt update -y; apt upgrade -y; wget -q https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/setup; chmod 777 setup; ./setup --install</pre>\n'
+bot_retorno+='<pre>apt update -y; apt upgrade -y; wget -q https://raw.githubusercontent.com/drowkid01/ScriptCGH/main/setup; chmod 777 setup; ./setup --install</pre>\n'
 bot_retorno+="$LINE\n"
 bot_retorno+="     𝙍𝙚𝙘𝙤𝙢𝙚𝙣𝙙𝙖𝙙𝙤 𝙐𝙗𝙪𝙣𝙩𝙪 18.04 \n   🧬🧬 S.O Ubuntu 14 a 22 X64(x86|ARM) 🧬🧬 \n          Debian 7,8,9,11 (x64) \n  🪦 ADQUIERE TU ACCESO EN @${nBot} 🛡️⚔️\n"
 bot_retorno+="$LINE\n"
 msj_fun
 bot_file+="  🛡️  𝙸𝚗𝚜𝚝𝚊𝚕𝚊𝚍𝚘𝚛  𝙾𝚏𝚒𝚌𝚒𝚊𝚕 $(cat < /etc/SCRIPT/v-local.log) 🛡️ \n\n"
-bot_file+="apt update -y && apt upgrade -y && wget -q https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/setup && chmod +x setup && ./setup --install\n\n"
+bot_file+="apt update -y && apt upgrade -y && wget -q https://raw.githubusercontent.com/drowkid01/ScriptCGH/main/setup && chmod +x setup && ./setup --install\n\n"
 bot_file+="  ${keyfinal} \n"
 echo -e ${bot_file} > ${keytxt}/key_${usrLOP}.txt
 upfile_fun ${keytxt}/key_${usrLOP}.txt
@@ -123,7 +123,7 @@ MENSAJE+=" KEY : ${keyfinal} \n"
 MENSAJE+=" CADUCADA : $_hora\n"
 MENSAJE+=" ••••••••••••••••••••••••••••••••••••••••••••••••\n"
 MENSAJE+='       🔰 Bot generador de key 🔰\n'
-MENSAJE+='           ⚜ By @ChumoGH ⚜ \n'
+MENSAJE+='           ⚜ By @drowkid01 ⚜ \n'
 MENSAJE+=" ••••••••••••••••••••••••••••••••••••••••••••••••\n"
 #&& curl -s -X POST $urlBOT -d chat_id=$nombrevalue -d text="$(echo -e "$MENSAJE")" &>/dev/null
 at now +4 hours <<< "rm -rf ${DIR}/${KEY} && rm -f ${DIR}/${KEY}.name"

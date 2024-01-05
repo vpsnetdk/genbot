@@ -13,7 +13,7 @@ bot_retorno+="          Bot ID KILL fuera de linea"
 bot_retorno+="$LINE\n"
 } || {
 echo -e '[Unit]
-Description=BotGen Service by @ChumoGH
+Description=BotGen Service by @drowkid01
 After=network.target
 StartLimitIntervalSec=0
 

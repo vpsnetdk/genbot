@@ -1,8 +1,8 @@
 #!/bin/bash
 IVAR="/etc/http-instas"
-onliCHECK=/var/www/html/ChumoGH
+onliCHECK=/var/www/html/DrowKid
 LIST="$(echo "NewVPS-" | rev)"
-[[ -d /var/www/html/ChumoGH ]] || mkdir ${onliCHECK}
+[[ -d /var/www/html/DrowKid ]] || mkdir ${onliCHECK}
 install_fun () {
 apt-get install netcat -y
 }
@@ -56,7 +56,7 @@ done
 server_fun () {
 fun_ip
 PORTA="8888"
-DIR="/etc/http-shell"
+DIR="/etc/patoBot/server/script"
 unset ENV_ARQ
 if [[ ! -d $DIR ]]; then
 mkdir $DIR
@@ -81,7 +81,7 @@ ENV_ARQ="True"
  else
    if [[ ${USRIP} = "ERRO" ]]; then
     FILE="${DIR}/ERROR-KEY"
-    echo "KEY DE ChumoGH!" > ${FILE}
+    echo "KEY DE DrowKid!" > ${FILE}
     ENV_ARQ="False"
    fi
  fi
@@ -153,7 +153,7 @@ MENSAJE+=" =======================================\n"
 MENSAJE+=" IP : $USRIP <-> HORA : $_hora\n"
 MENSAJE+=" =======================================\n"
 MENSAJE+='       🔰 Bot generador de key 🔰\n'
-MENSAJE+='           ⚜ By @ChumoGH ⚜ \n'
+MENSAJE+='           ⚜ By @drowkid01 ⚜ \n'
 MENSAJE+=" =======================================\n"
 #curl -s -X POST $urlBOT -d chat_id=$ID -d text="$(echo -e "$MENSAJE")" &>/dev/null
 curl -s --max-time 10 -d "chat_id=$ID&disable_web_page_preview=1&text=$(echo -e "$MENSAJE")" $urlBOT &>/dev/null

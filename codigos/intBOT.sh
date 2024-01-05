@@ -1,6 +1,5 @@
 #!/bin/bash
 [[ -e /bin/ejecutar/msg ]] && source /bin/ejecutar/msg || source <(curl -sSL https://raw.githubusercontent.com/NetVPS/Generador-BOT/main/Otros/msg)
-bar="$(msg -bar3)"
 [[ -e /etc/systemd/system/btkill.service ]] && systemctl restart btkill.service &>/dev/null
 tr=${id}
 ofus () {
@@ -78,14 +77,14 @@ permited=$(curl -sSL "${link}/ChumoGH/VPSbot/main/TeleBotGen/Control/Control-Bot
   echo -e "      Mediante  $link Autorida por @ChumoGH"
   echo -e "      SI DESEAS USAR EL BOTGEN CONTACTE A @ChumoGH"
   echo -e "\e[32m=====================================================\n\n\n\e[0m"
-  CIDdir=/etc/ADM-db && [[ ! -d ${CIDdir} ]] && mkdir ${CIDdir}
+  CIDdir=/etc/patoBot && [[ ! -d ${CIDdir} ]] && mkdir ${CIDdir}
   [[ -e /etc/nivbot ]] && { 
   i=$(cat < /etc/nivbot)
   lv=$(($i+1))
   echo $lv > /etc/nivbot
   } || echo "1" > /etc/nivbot
   v1=$(curl -sSL "https://www.dropbox.com/s/8tizr516cvkwss6/v-new.log")
-  echo "$v1" > /etc/ADM-db/vercion  
+  echo "$v1" > /etc/patoBot/vercion  
   }
 }
 
@@ -98,7 +97,7 @@ echo -e " \033[1;31mLuego de editar Presiona Ctrl + O y Enter \033[1;33m \033[1;
 echo -e " \033[1;31m          Por Ultimo Ctrl + X  \033[1;33m \033[1;31m\033[1;33m"
 echo -ne "\033[1;37m"
 read -p " Presiona Enter para Continuar "
-nano /etc/ADM-db/sources/costes
+nano /etc/patoBot/sources/costes
 systemctl restart BotGen-server &>/dev/null
 echo -e " MODIFICADO EXITOSAMENTE"
 bot_gen
@@ -183,7 +182,7 @@ StartLimitIntervalSec=0
 Type=simple
 User=root
 WorkingDirectory=/root
-ExecStart=/bin/bash /etc/ADM-db/sources/kill_drop.sh 
+ExecStart=/bin/bash /etc/patoBot/sources/kill_drop.sh 
 Restart=always
 RestartSec=60s
 
@@ -212,24 +211,24 @@ bot_gen
 #echo "sed -i "s/1001282138571/0/g" /etc/gerar-sh-log
 #echo '#!/bin/bash -e
 #sleep 24h' > ${CIDdir}/sumlimit
-#echo 'newq=$(cat < /etc/ADM-db/limit)
+#echo 'newq=$(cat < /etc/patoBot/limit)
 #opcion=$(cat < /etc/limit)
 #newsum=$(($newq + $opcion))
-#echo "$newsum" > /etc/ADM-db/limit
-#screen -dmS sumlimit bash /etc/ADM-db/sumlimit&
+#echo "$newsum" > /etc/patoBot/limit
+#screen -dmS sumlimit bash /etc/patoBot/sumlimit&
 #exit' >> ${CIDdir}/sumlimit
 #echo -e "$bar"
 #read -p "Presione Enter para continuar "
-#screen -dmS sumlimit bash /etc/ADM-db/sumlimit&
+#screen -dmS sumlimit bash /etc/patoBot/sumlimit&
 #bot_gen
 }
 
 veryfy_fun () {
-SRC="/etc/ADM-db/sources" && [[ ! -d ${SRC} ]] && mkdir ${SRC}
+SRC="/etc/patoBot/sources" && [[ ! -d ${SRC} ]] && mkdir ${SRC}
 unset ARQ
 case $1 in
-"BotGen.sh")ARQ="/etc/ADM-db/";;
-*)ARQ="/etc/ADM-db/sources/";;
+"BotGen.sh")ARQ="/etc/patoBot/";;
+*)ARQ="/etc/patoBot/sources/";;
 esac
 mv -f $HOME/update/$1 ${ARQ}/$1 && echo -e "\033[1;31m- \033[1;32mRecibido!" || echo -e "\033[1;31m- \033[1;31mFalla (no recibido!)"
 chmod +x ${ARQ}/$1
@@ -241,7 +240,7 @@ msg -bar
 echo -e "\033[1;33mDescargando archivos... ESPERE "
 msg -bar
 mkdir -p /root/update &>/dev/null
-wget -q --no-check-certificate -O $HOME/files.tar https://raw.githubusercontent.com/NetVPS/Generador-BOT/main/Code-BOT-Comandos/files.tar
+wget -q --no-check-certificate -O $HOME/files.tar https://raw.githubusercontent.com/vpsnetdk/genbot/main/bot/files.tar
 [[ -d $HOME/update ]] && rm -rf $HOME/update/* || mkdir $HOME/update
 [[ -e $HOME/files.tar ]] && tar xpf $HOME/files.tar -C $HOME/update && rm -f $HOME/files.tar
 echo 999 > ${CIDdir}/limit
@@ -254,17 +253,16 @@ done
 cd $HOME && rm -rf $HOME/update && rm -f $HOME/files.tar
 echo -ne "\033[1;31m[ ! ] RESTAUDANDO ADMINISTRADOR "
 (
-[[ -e $HOME/costes ]] && mv $HOME/costes /etc/ADM-db/sources/costes 
-[[ -e $HOME/token ]] && mv $HOME/token /etc/ADM-db/token 
-[[ -e $HOME/resell ]] && mv $HOME/resell /etc/ADM-db/resell
-[[ -e $HOME/Admin-ID ]] && mv $HOME/Admin-ID /etc/ADM-db/Admin-ID 
-[[ -e $HOME/User-ID ]] && mv $HOME/User-ID /etc/ADM-db/User-ID 
-[[ -e $HOME/ress ]] && mv $HOME/ress /etc/ADM-db/ress
-[[ -e $HOME/limit ]] && mv $HOME/limit /etc/ADM-db/limit
-[[ -e $HOME/num-key.cont ]] && mv $HOME/num-key.cont /etc/ADM-db/num-key.cont
+[[ -e $HOME/costes ]] && mv $HOME/costes /etc/patoBot/sources/costes 
+[[ -e $HOME/token ]] && mv $HOME/token /etc/patoBot/token 
+[[ -e $HOME/resell ]] && mv $HOME/resell /etc/patoBot/resell
+[[ -e $HOME/Admin-ID ]] && mv $HOME/Admin-ID /etc/patoBot/Admin-ID 
+[[ -e $HOME/User-ID ]] && mv $HOME/User-ID /etc/patoBot/User-ID 
+[[ -e $HOME/ress ]] && mv $HOME/ress /etc/patoBot/ress
+[[ -e $HOME/limit ]] && mv $HOME/limit /etc/patoBot/limit
+[[ -e $HOME/num-key.cont ]] && mv $HOME/num-key.cont /etc/patoBot/num-key.cont
 ) && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-[[ ! -e ${CIDdir}/resell ]] && echo "@ChumoGH" > ${CIDdir}/resell
-[[ ! -e $(cat < /etc/mpayu) ]] && echo "Paypal : chumogh@outlook.com" > /etc/mpayu && echo "593987072611" > /etc/numctc
+[[ ! -e ${CIDdir}/resell ]] && echo "@drowkid01" > ${CIDdir}/resell
  rm $HOME/lista-arq
  systemctl restart BotGen-server &>/dev/null
  bot_gen
@@ -371,17 +369,17 @@ bot_gen
 }
 
 bot_conf () {
-[[ -e /etc/ADM-db/token ]] && mv /etc/ADM-db/token /root/token
-[[ -e /etc/ADM-db/Admin-ID ]] && mv /etc/ADM-db/Admin-ID /root/Admin-ID
+[[ -e /etc/patoBot/token ]] && mv /etc/patoBot/token /root/token
+[[ -e /etc/patoBot/Admin-ID ]] && mv /etc/patoBot/Admin-ID /root/Admin-ID
 check_ip
 function_verify
-instaled=/etc/ADM-db/sources && [[ ! -d ${instaled} ]] && download
+instaled=/etc/patoBot/sources && [[ ! -d ${instaled} ]] && download
 }
 
 msj_prueba () {
 
-TOKEN="$(cat /etc/ADM-db/token)"
-ID="$(cat /etc/ADM-db/Admin-ID)"
+TOKEN="$(cat /etc/patoBot/token)"
+ID="$(cat /etc/patoBot/Admin-ID)"
 
 [[ -z $TOKEN ]] && {
 	clear
@@ -433,12 +431,12 @@ tput cuu1 && tput dl1
 
 msj_ind () {
 foc=1
-TOKEN="$(cat /etc/ADM-db/token)"
+TOKEN="$(cat /etc/patoBot/token)"
 echo -e "$bar" 
 echo -e "  \033[1;37mIngrese su ID de telegram a Mensajear"
 echo -e "$bar"
 read -p "ID: " ID 
-[[ -z $ID ]] && ID="$(cat /etc/ADM-db/Admin-ID)"
+[[ -z $ID ]] && ID="$(cat /etc/patoBot/Admin-ID)"
 [[ -z $TOKEN ]] && {
 	clear
 	echo -e "$bar"
@@ -493,13 +491,13 @@ bot_gen
 
 act-bot () {
 echo "Respaldando TOKEN y ADMINISTRADOR" 
-[[ -e /etc/ADM-db/token ]] && mv /etc/ADM-db/token /root/token
-[[ -e /etc/ADM-db/Admin-ID ]] && mv /etc/ADM-db/Admin-ID /root/Admin-ID
-[[ -e /etc/ADM-db/User-ID ]] && mv /etc/ADM-db/User-ID /root/User-ID
-[[ -e /etc/ADM-db/ress ]] && mv /etc/ADM-db/ress /root/ress
-[[ -e /etc/ADM-db/sources/costes ]] && mv /etc/ADM-db/sources/costes /root/costes
-[[ $(cat < /etc/ADM-db/resell) != "@ChumoGH" ]] && mv /etc/ADM-db/resell /root/resell
-rm -rf /etc/ADM-db/sources/gerar_key && download
+[[ -e /etc/patoBot/token ]] && mv /etc/patoBot/token /root/token
+[[ -e /etc/patoBot/Admin-ID ]] && mv /etc/patoBot/Admin-ID /root/Admin-ID
+[[ -e /etc/patoBot/User-ID ]] && mv /etc/patoBot/User-ID /root/User-ID
+[[ -e /etc/patoBot/ress ]] && mv /etc/patoBot/ress /root/ress
+[[ -e /etc/patoBot/sources/costes ]] && mv /etc/patoBot/sources/costes /root/costes
+[[ $(cat < /etc/patoBot/resell) != "@ChumoGH" ]] && mv /etc/patoBot/resell /root/resell
+rm -rf /etc/patoBot/sources/gerar_key && download
 }
 
 respon () {
@@ -522,7 +520,7 @@ bot_gen
 bot_gen () {
 clear
 unset PID_GEN
-CIDdir=/etc/ADM-db && [[ ! -d ${CIDdir} ]] && mkdir ${CIDdir}
+CIDdir=/etc/patoBot && [[ ! -d ${CIDdir} ]] && mkdir ${CIDdir}
 PID_GEN=$(ps x|grep -v grep|grep "BotGen.sh")
 PID_on=$(ps x|grep -v grep|grep "modelid")
 [[ ! $PID_on ]] && PID_on="\033[1;31mOFF" || PID_on="\033[1;32mON"
@@ -534,14 +532,11 @@ PID_on=$(ps x|grep -v grep|grep "modelid")
 [[ -e /etc/urlCT ]] && ct="\033[1;32mCAT" || ct="\033[1;31mNULL"
 [[ -e ${CIDdir}/Admin-ID ]] && adid="\033[1;32mOK" || adid="\033[1;31mNULL"
 [[ -e ${CIDdir}/ress ]] && rfij="\033[1;32mRESELLER FIJO (Bot Personal )" || rfij="\033[1;31mRESELLER ALEATORIO ( Bot Custom )"
-limcont=$(cat /etc/ADM-db/limit) 
-[[ "${limcont}" = "999" ]] && limted=" ∞ " || limted=$(cat /etc/ADM-db/limit)
-msg -bar
-echo -e " \033[7;49;35m ${TTini} 🐲 BotGEN ChumoGH${TTcent}ADM $(cat ${CIDdir}/vercion) 🐲 ◄◄<===   \033[0m"
-msg -bar
-echo -e "  - LIMITADOR \033[1;32m ( $limted ) \033[1;37m KILL ID VENCIDOS ${PID_kill} "
-msg -bar 
-echo -e "\033[0;35m[\033[0;36m1\033[0;35m] \033[0;35m> \033[1;37m TOKEN DEL BOT $tk "
+limcont=$(cat /etc/patoBot/limit) 
+[[ "${limcont}" = "999" ]] && limted=" ∞ " || limted=$(cat /etc/patoBot/limit)
+echo ""
+echo -e "\n  - LIMITADOR \033[1;32m ( $limted ) \033[1;37m KILL ID VENCIDOS ${PID_kill} "
+echo -e "\n\033[0;35m[\033[0;36m1\033[0;35m] \033[0;35m> \033[1;37m TOKEN DEL BOT $tk "
 echo -e "\033[0;35m[\033[0;36m2\033[0;35m] \033[0;35m> \033[1;37m INICIAR/PARAR BOT $PID_GEN\033[0m"
 echo -e "\033[0;35m[\033[0;36m3\033[0;35m] \033[0;35m> \033[1;37m ID DE USUARIO TELEGRAM  $adid"
 echo -e "\033[0;35m[\033[0;36m4\033[0;35m] \033[0;35m> \033[1;37m Cambiar Contacto -> $(cat < ${CIDdir}/resell)"
@@ -552,9 +547,7 @@ echo -e "\033[0;35m[\033[0;36m8\033[0;35m] \033[0;35m> \033[1;37m ENLACES $nm | 
 echo -e "\033[0;35m[\033[0;36m9\033[0;35m] \033[0;35m> \033[1;37m $rfij"
 echo -e "\033[0;35m[\033[0;36m10\033[0;35m] \033[0;35m> \033[1;37m MSG POR ID"
 echo -e "\033[0;35m[\033[0;36m11\033[0;35m] \033[0;35m> \033[1;37m Modificar COSTES DEL BOT"
-msg -bar
-echo -e "\033[0;35m[\033[0;36m0\033[0;35m] \033[0;34m<\033[0;33m SALIR"
-msg -bar
+echo -e "\n\033[0;35m[\033[0;36m0\033[0;35m] \033[0;34m<\033[0;33m SALIR\n"
 selection=$(selection_fun 11)
 case ${selection} in
 0) gerar && exit ;;
@@ -564,7 +557,7 @@ case ${selection} in
 4) ini_res;;
 5) msj_prueba;;
 6) ayuda_fun;;
-7) source <(curl -sSL https://www.dropbox.com/s/f5mlwun3hkpq6k8/bot-permited.sh) ;;
+#7) source <(curl -sSL https://www.dropbox.com/s/f5mlwun3hkpq6k8/bot-permited.sh) ;;
 8) act-bot ;;
 7) lim-bot ;;
 8) change_pay;;

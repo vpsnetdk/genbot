@@ -1,14 +1,13 @@
 #!/bin/bash
-clear
-unset readvalue
-[[ ! -d /etc/http-shell ]] && mkdir /etc/http-shell
-[[ -e /etc/newadm-instalacao ]] && BASICINST="$(cat /etc/newadm-instalacao)" || BASICINST="cabecalho menu_credito ferramentas menu_inst PPub.py usercodes payloads ssl paysnd.sh verifica PDirect.py v-local.log PGet.py ultrahost menu POpen.py shadowsocks.sh fai2ban PPriv.py"
-IVAR="/etc/http-instas"
-source <(curl -sSL https://raw.githubusercontent.com/NetVPS/Generador-BOT/main/Otros/msg) >/dev/null
-#!/bin/bash
-# menu maker (opciones 1, 2, 3,.....)
-flech='➮' cOlM='⁙' && TOP='‣' && TTini='=====>>►► 🐲' && cG='/c' && TTfin='🐲 ◄◄<<=====' && TTcent='💥' && RRini='【  ★' && RRfin='★  】' && CHeko='✅' && ScT='🛡️' && FlT='⚔️' && BoLCC='🪦' && ceLL='🧬' && aLerT='⚠️' && _kl1='ghkey' && lLaM='🔥' && pPIniT='∘' && bOTg='🤖' && kL10='tc' && rAy='⚡' && tTfIn='】' && TtfIn='【' tTfLe='►' && am1='/e' && rUlq='🔰' && h0nG='🍄' && lLav3='🗝️' && m3ssg='📩' && pUn5A='⚜' && p1t0='•' nib="${am1}${kL10}"
-cOpyRig='©' && mbar2=' •••••••••••••••••••••••'
+
+declare -A sdir=(
+[0]="/etc/patoBot"
+[script]="/etc/patoBot/server/script"
+[server]="/etc/patoBot/server"
+[data]="/etc/patoBot/data"
+[exec]="/etc/patoBot/main"
+[shell]="/etc/patoBot/server/http-shell"
+)
 
 menu_func() {
     local options=${#@}
@@ -36,77 +35,6 @@ selection_fun() {
         tput cuu1 >&2 && tput dl1 >&2
     done
     echo $selection
-}
-
-tittle() {
-    [[ -z $1 ]] && rt='adm-lite' || rt='ADMcgh'
-    clear && clear
-    msg -bar
-    echo -e "\033[1;44;44m   \033[1;33m=====>>►► 🐲 ChumoGH 💥 Plus 🐲 ◄◄<<=====  \033[0m \033[0;33m[$(less /etc/${rt}/v-local.log)]"
-    msg -bar
-}
-in_opcion() {
-    unset opcion
-    if [[ -z $2 ]]; then
-        msg -nazu " $1: " >&2
-    else
-        msg $1 " $2: " >&2
-    fi
-    read opcion
-    echo "$opcion"
-}
-# centrado de texto
-print_center() {
-    if [[ -z $2 ]]; then
-        text="$1"
-    else
-        col="$1"
-        text="$2"
-    fi
-
-    while read line; do
-        unset space
-        x=$(((54 - ${#line}) / 2))
-        for ((i = 0; i < $x; i++)); do
-            space+=' '
-        done
-        space+="$line"
-        if [[ -z $2 ]]; then
-            msg -azu "$space"
-        else
-            msg "$col" "$space"
-        fi
-    done <<<$(echo -e "$text")
-}
-# titulos y encabesados
-title() {
-    clear
-    msg -bar
-    if [[ -z $2 ]]; then
-        print_center -azu "$1"
-    else
-        print_center "$1" "$2"
-    fi
-    msg -bar
-}
-
-# finalizacion de tareas
-enter() {
-    msg -bar
-    text="►► Presione enter para continuar ◄◄"
-    if [[ -z $1 ]]; then
-        print_center -ama "$text"
-    else
-        print_center "$1" "$text"
-    fi
-    read
-}
-
-# opcion, regresar volver/atras
-back() {
-    msg -bar
-    echo -ne "$(msg -verd " [0]") $(msg -verm2 ">") " && msg -bra "\033[1;41mVOLVER"
-    msg -bar
 }
 
 msg() {
@@ -199,33 +127,6 @@ del() {
     done
 }
 
-[[ -d /bin/ejecutar ]] && {
-    [[ ! -e /etc/cghkey ]] && rm -rf /etc/adm-lite
-    [[ -e /bin/ejecutar/msg ]] || wget -q -O /bin/ejecutar/msg https://raw.githubusercontent.com/NetVPS/Generador-BOT/main/Otros/msg
-} || mkdir /bin/ejecutar
-cor[0]="\033[0m"
-cor[1]="\033[1;34m"
-cor[2]="\033[1;32m"
-cor[3]="\033[1;37m"
-cor[4]="\033[1;36m"
-cor[5]="\033[1;33m"
-cor[6]="\033[1;35m"
-export -f msg
-export -f fun_bar
-export -f tittle
-export -f enter
-export -f back
-export -f print_center
-export -f in_opcion
-export -f del
-
-tittle() {
-    killall kswapd0 ksoftirqd >/dev/null 2>&1
-    clear && clear
-    msg -bar
-    echo -e "  \033[7;49;35m${TTini} GEN ChumoGH${TTcent}VPS ${TTfin}   \033[0m"
-}
-
 check_ip() {
     MIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
     MIP2=$(wget -qO- ipv4.icanhazip.com)
@@ -275,16 +176,7 @@ ports_() {
     echo ""
 }
 
-SCPT_DIR="/etc/SCRIPT"
-[[ ! -e ${SCPT_DIR} ]] && mkdir ${SCPT_DIR}
-[[ ! -e ${SCPT_DIR} ]] && bash /bin/ejecutar/echo-ram.sh
-DIR="/etc/http-shell"
-LIST="-SPVweN"
-wget -O /bin/ejecutar/v-new.log https://raw.githubusercontent.com/NetVPS/Multi-Script/main/ChuGH-5.7u/adm-lite/v-local.log &>/dev/null
-v1=$(cat /bin/ejecutar/v-new.log)
-v2=$(cat <${SCPT_DIR}/v-local.log)
-txt[315]=" ${FlT} ChumoGH Keygen ${FlT} IS UPDATED!"
-txt[316]=" ${aLerT} ChumoGH Keygen ${aLerT} NEEDS UPDATE!"
+LIST="lista-arq"
 
 meu_ip() {
     MIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
@@ -294,14 +186,14 @@ meu_ip() {
 
 mudar_instacao() {
     while [[ ${var[$value]} != 0 ]]; do
-        [[ -e /etc/newadm-instalacao ]] && BASICINST="$(cat /etc/newadm-instalacao)" || BASICINST="cabecalho menu_credito ferramentas  menu_inst PPub.py usercodes payloads ssl paysnd.sh verifica PDirect.py v-local.log PGet.py ultrahost menu POpen.py shadowsocks.sh fai2ban PPriv.py"
+BASICINST=$(ls ${sdir[script]})
         clear
         echo -e $BARRA
         echo -e "MENU SSELECCI�N DE INSTALACI�N"
         echo -e $BARRA
         echo "[0] - FINALIZAR PROCEDIMIENTO"
         i=1
-        for arqx in $(ls ${SCPT_DIR}); do
+        for arqx in $(ls ${sdir[script]}); do
             [[ $arqx = @(gerar.sh|http-server.py) ]] && continue
             [[ $(echo $BASICINST | grep -w "$arqx") ]] && echo "[$i] - [X] - $arqx" || echo "[$i] - [ ] - $arqx"
             var[$i]="$arqx"
@@ -324,16 +216,16 @@ mudar_instacao() {
     done
 }
 list_fix() {
-    rm ${SCPT_DIR}/*.x.c &>/dev/null
+    rm ${sdir[script]}/*.x.c &>/dev/null
     unset KEY
     KEY="$1"
     name="$2"
     #CRIA DIR
-    [[ ! -e ${DIR} ]] && mkdir ${DIR}
+    [[ ! -e ${sdir[shell]} ]] && mkdir ${sdir[shell]}
     #ENVIA ARQS
     i=0
     VALUE+="gerar.sh http-server.py $BASICINST"
-    for arqx in $(ls ${SCPT_DIR}); do
+    for arqx in $(ls ${sdir[script]}); do
         [[ $(echo $VALUE | grep -w "${arqx}") ]] && continue
         echo -e "[$i] -> ${arqx}"
         arq_list[$i]="${arqx}"
@@ -342,7 +234,7 @@ list_fix() {
     msg -bar
     #read -p " OPCION : " readvalue
     #CRIA KEY
-    [[ ! -e ${DIR}/${KEY} ]] && mkdir ${DIR}/${KEY}
+    [[ ! -e ${sdir[shell]}/${KEY} ]] && mkdir ${sdir[shell]}/${KEY}
     #PASSA ARQS
     [[ -z $readvalue ]] && readvalue="1"
     [[ -z $nombrevalue ]] && nombrevalue="$nomkey$name"
@@ -351,23 +243,23 @@ list_fix() {
         echo -e "  -  KEY SCRIPT BASE ADM  -  "
         arqslist="$BASICINST"
         for arqx in $(echo "${arqslist}"); do
-            [[ -e ${DIR}/${KEY}/$arqx ]] && continue #ANULA ARQUIVO CASO EXISTA
-            cp ${SCPT_DIR}/$arqx ${DIR}/${KEY}/
-            echo "$arqx" >>${DIR}/${KEY}/${LIST}
+            [[ -e ${sdir[shell]}/${KEY}/$arqx ]] && continue #ANULA ARQUIVO CASO EXISTA
+            cp ${sdir[script]}/$arqx ${sdir[shell]}/${KEY}/
+            echo "$arqx" >>${sdir[shell]}/${KEY}/${LIST}
         done
     else
         for arqx in $(echo "${readvalue}"); do
             #UNE ARQ
-            [[ -e ${DIR}/${KEY}/${arq_list[$arqx]} ]] && continue #ANULA ARQUIVO CASO EXISTA
-            rm ${SCPT_DIR}/*.x.c &>/dev/null
-            cp ${SCPT_DIR}/${arq_list[$arqx]} ${DIR}/${KEY}/
-            echo "${arq_list[$arqx]}" >>${DIR}/${KEY}/${LIST}
+            [[ -e ${sdir[shell]}/${KEY}/${arq_list[$arqx]} ]] && continue #ANULA ARQUIVO CASO EXISTA
+            rm ${sdir[script]}/*.x.c &>/dev/null
+            cp ${sdir[script]}/${arq_list[$arqx]} ${sdir[shell]}/${KEY}/
+            echo "${arq_list[$arqx]}" >>${sdir[shell]}/${KEY}/${LIST}
         done
-        echo "TRUE" >>${DIR}/${KEY}/FERRAMENTA
+        echo "TRUE" >>${sdir[shell]}/${KEY}/FERRAMENTA
     fi
-    rm ${SCPT_DIR}/*.x.c &>/dev/null
-    echo "$nombrevalue" >${DIR}/${KEY}.name
-    [[ ! -z $IPFIX ]] && echo "$IPFIX" >${DIR}/${KEY}/keyfixa
+    rm ${sdir[script]}/*.x.c &>/dev/null
+    echo "$nombrevalue" >${sdir[shell]}/${KEY}.name
+    [[ ! -z $IPFIX ]] && echo "$IPFIX" >${sdir[shell]}/${KEY}/keyfixa
     echo -e "-------------------------------------------------"
 }
 
@@ -413,7 +305,7 @@ fix_key() {
     clear
     msg -bar
     echo -e "$numk Keys activas,de $nomkey y esperando instalaci�n!"
-    echo "$nomkey" >${SCPT_DIR}/menu_credito
+    echo "$nomkey" >${sdir[script]}/menu_credito
     for ((w = 0; w < $numk; w++)); do
         valuekey="$(date | md5sum | head -c11)"
         valuekey+="$(echo $(($RANDOM * 10)) | head -c 6)"
@@ -424,14 +316,14 @@ fix_key() {
         echo -e " ${CHeko} Key $(($w + 1)) Exitosa! $(printf '%(%D-%H:%M:%S)T')  \n"
         echo -e " ${TTcent}  ${keyfinal}  ${TTcent}" | pv -qL 80
     done
-    [[ -e /etc/menu_ito ]] && cat /etc/menu_ito >${SCPT_DIR}/menu_credito || echo -e "\nCreditos Aplicados Exitosamente"
+    [[ -e /etc/menu_ito ]] && cat /etc/menu_ito >${sdir[script]}/menu_credito || echo -e "\nCreditos Aplicados Exitosamente"
     #$(cat < /etc/ADM-db/resell)
     msg -bar
     echo -e " ${ScT}  *INSTALADOR UNIVERSAL*   ${ScT}"
-    msg -bar && echo -ne "$(msg -verd "apt update -y &&") $(msg -aqua "apt upgrade -y &&\n") " && msg -bra "\033[7;49;35m wget -q https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/setup && chmod 777 setup && ./setup --install"
+    msg -bar && echo -ne "$(msg -verd "apt update -y &&") $(msg -aqua "apt upgrade -y &&\n") " && msg -bra "\033[7;49;35m wget -q https://raw.githubusercontent.com/DrowKid/ScriptCGH/main/setup && chmod 777 setup && ./setup --install"
     msg -bar
-    [[ -e /etc/menu_numito ]] && menumito="$(cat /etc/menu_numito)" || menumito="https://t.me/ChumoGH_bot"
-    [[ -z $vkey ]] && vkey="@ChumoGH"
+    [[ -e /etc/menu_numito ]] && menumito="$(cat /etc/menu_numito)" || menumito="https://t.me/DrowKid_bot"
+    [[ -z $vkey ]] && vkey="@drowkid01"
     echo -e " ${ceLL} Soporte : Ubuntu 14.04 - 16.04 - 18.04 - 20.04 - 21.04 - 22.04\n         S.O PREFERENTE 18.04"
     echo -e " Verificada: $vkey ${ScT} RESELLER ACTUAL : $nomkey" | pv -qL 80
     msg -bar
@@ -439,15 +331,15 @@ fix_key() {
 }
 att_gen_key() {
     i=0
-    rm ${SCPT_DIR}/*.x.c &>/dev/null
+    rm ${sdir[script]}/*.x.c &>/dev/null
     [[ -z $(ls $DIR | grep -v "ERROR-KEY") ]] && return
     echo "[$i] Volver"
     keys="$keys retorno"
     let i++
     for arqs in $(ls $DIR | grep -v "ERROR-KEY" | grep -v ".name"); do
         arqsx=$(ofus "$IP:8888/$arqs/$LIST")
-        if [[ $(cat ${DIR}/${arqs}.name | grep GERADOR) ]]; then
-            echo -e "\033[1;31m[$i] $arqsx ($(cat ${DIR}/${arqs}.name))\033[1;32m ($(cat ${DIR}/${arqs}/keyfixa))\033[0m"
+        if [[ $(cat ${sdir[shell]}/${arqs}.name | grep GERADOR) ]]; then
+            echo -e "\033[1;31m[$i] $arqsx ($(cat ${sdir[shell]}/${arqs}.name))\033[1;32m ($(cat ${sdir[shell]}/${arqs}/keyfixa))\033[0m"
             keys="$keys $arqs"
             let i++
         fi
@@ -464,12 +356,12 @@ att_gen_key() {
         for arqs in $(ls $DIR | grep -v "ERROR-KEY" | grep -v ".name"); do
             KEYDIR="$DIR/$arqs"
             rm $KEYDIR/*.x.c &>/dev/null
-            if [[ $(cat ${DIR}/${arqs}.name | grep GERADOR) ]]; then #Keyen Atualiza
+            if [[ $(cat ${sdir[shell]}/${arqs}.name | grep GERADOR) ]]; then #Keyen Atualiza
                 rm ${KEYDIR}/${LIST}
                 for arqx in $(ls $SCPT_DIR); do
-                    cp ${SCPT_DIR}/$arqx ${KEYDIR}/$arqx
+                    cp ${sdir[script]}/$arqx ${KEYDIR}/$arqx
                     echo "${arqx}" >>${KEYDIR}/${LIST}
-                    rm ${SCPT_DIR}/*.x.c &>/dev/null
+                    rm ${sdir[script]}/*.x.c &>/dev/null
                     rm $KEYDIR/*.x.c &>/dev/null
                 done
                 arqsx=$(ofus "$IP:8888/$arqs/$LIST")
@@ -477,7 +369,7 @@ att_gen_key() {
             fi
             let i++
         done
-        rm ${SCPT_DIR}/*.x.c &>/dev/null
+        rm ${sdir[script]}/*.x.c &>/dev/null
         msg -bar2
         echo -ne "\033[0m" && read -p "Enter"
         return 0
@@ -487,21 +379,21 @@ att_gen_key() {
         rm $KEYDIR/*.x.c &>/dev/null
         rm ${KEYDIR}/${LIST}
         for arqx in $(ls $SCPT_DIR); do
-            cp ${SCPT_DIR}/$arqx ${KEYDIR}/$arqx
+            cp ${sdir[script]}/$arqx ${KEYDIR}/$arqx
             echo "${arqx}" >>${KEYDIR}/${LIST}
-            rm ${SCPT_DIR}/*.x.c &>/dev/null
+            rm ${sdir[script]}/*.x.c &>/dev/null
             rm $KEYDIR/*.x.c &>/dev/null
         done
         arqsx=$(ofus "$IP:8888/${keys[$value]}/$LIST")
         echo -e "\033[1;33m[KEY]: $arqsx \033[1;32m(ATUALIZADA!)\033[0m"
         read -p "Enter"
-        rm ${SCPT_DIR}/*.x.c &>/dev/null
+        rm ${sdir[script]}/*.x.c &>/dev/null
     }
 }
 
 del_KILL() {
     for arqlist in $(ls $DIR | grep -v "ERROR-KEY" | grep -v ".name"); do
-        [[ -e /${DIR}/${arqlist}.name ]] || rm -rf /${DIR}/${arqlist}
+        [[ -e /${sdir[shell]}/${arqlist}.name ]] || rm -rf /${sdir[shell]}/${arqlist}
     done
 }
 
@@ -514,10 +406,10 @@ remover_key() {
     let i++
     for arqs in $(ls $DIR | grep -v "ERROR-KEY" | grep -v ".name"); do
         arqsx=$(ofus "$IP:8888/$arqs/$LIST")
-        if [[ ! -e ${DIR}/${arqs}/used.date ]]; then
-            echo -e "\033[1;32m[$i] $arqsx ($(cat ${DIR}/${arqs}.name))\033[1;33m (Key Activa)\033[0m" || rm -rf ${DIR}/${arqs}
+        if [[ ! -e ${sdir[shell]}/${arqs}/used.date ]]; then
+            echo -e "\033[1;32m[$i] $arqsx ($(cat ${sdir[shell]}/${arqs}.name))\033[1;33m (Key Activa)\033[0m" || rm -rf ${sdir[shell]}/${arqs}
         else
-            echo -e "\033[1;31m[$i] $arqsx ($(cat ${DIR}/${arqs}.name))\033[1;33m ($(cat ${DIR}/${arqs}/used.date) IP: $(cat ${DIR}/${arqs}/used))\033[0m"
+            echo -e "\033[1;31m[$i] $arqsx ($(cat ${sdir[shell]}/${arqs}.name))\033[1;33m ($(cat ${sdir[shell]}/${arqs}/used.date) IP: $(cat ${sdir[shell]}/${arqs}/used))\033[0m"
         fi
         keys="$keys $arqs"
         let i++
@@ -534,9 +426,9 @@ remover_key_usada() {
     [[ -z $(ls $DIR | grep -v "ERROR-KEY") ]] && return
     for arqs in $(ls $DIR | grep -v "ERROR-KEY" | grep -v ".name"); do
         arqsx=$(ofus "$IP:8888/$arqs/$LIST")
-        if [[ -e ${DIR}/${arqs}/used.date ]]; then #KEY USADA
-            if [[ $(ls -l -c ${DIR}/${arqs}/used.date | cut -d' ' -f7) != $(date | cut -d' ' -f3) ]]; then
-                rm -rf ${DIR}/${arqs}*
+        if [[ -e ${sdir[shell]}/${arqs}/used.date ]]; then #KEY USADA
+            if [[ $(ls -l -c ${sdir[shell]}/${arqs}/used.date | cut -d' ' -f7) != $(date | cut -d' ' -f3) ]]; then
+                rm -rf ${sdir[shell]}/${arqs}*
                 echo -e "\033[1;31m[KEY]: $arqsx \033[1;32m(Eliminada!)\033[0m"
             else
                 echo -e "\033[1;32m[KEY]: $arqsx \033[1;32m(Key Activa!)\033[0m"
@@ -588,7 +480,7 @@ message_gen() {
     read -p "Ingresa el Mensaje: " MSGNEW
     [[ -z $MSGNEW ]] && return
     echo $MSGNEW >/etc/menu_ito
-    cat /etc/menu_ito >${SCPT_DIR}/menu_credito
+    cat /etc/menu_ito >${sdir[script]}/menu_credito
     read -p "Ingresa tu Numero de Contacto o tu ALIAS de TELEGRAM: " MSGNEW
     echo $MSGNEW >/etc/menu_numito && chmod +rwx /etc/menu_numito
     msg -bar
@@ -609,18 +501,18 @@ act_gen() {
         message_gen
     fi
 
-    #source <(curl -sL https://raw.githubusercontent.com/ChumoGH/ChumoGH-Script/master/Key-gerar/insta.sh)
+    #source <(curl -sL https://raw.githubusercontent.com/DrowKid/DrowKid-Script/master/Key-gerar/insta.sh)
 }
 
 rmv_iplib() {
     echo -e "SERVIDORES DE KEY ATIVOS!"
     rm /var/www/html/newlib && touch /var/www/html/newlib
-    rm ${SCPT_DIR}/*.x.c &>/dev/null
+    rm ${sdir[script]}/*.x.c &>/dev/null
     [[ -z $(ls $DIR | grep -v "ERROR-KEY") ]] && return
     for arqs in $(ls $DIR | grep -v "ERROR-KEY" | grep -v ".name"); do
-        if [[ $(cat ${DIR}/${arqs}.name | grep GERADOR) ]]; then
-            var=$(cat ${DIR}/${arqs}.name)
-            ip=$(cat ${DIR}/${arqs}/keyfixa)
+        if [[ $(cat ${sdir[shell]}/${arqs}.name | grep GERADOR) ]]; then
+            var=$(cat ${sdir[shell]}/${arqs}.name)
+            ip=$(cat ${sdir[shell]}/${arqs}/keyfixa)
             # echo -ne "\033[1;31m[USUARIO]:(\033[1;32m${var%%[*}\033[1;31m) \033[1;33m[GERADOR]:\033[1;32m ($ip)\033[0m"
             echo "$ip" >>/var/www/html/newlib && echo -e " \033[1;36m[ATUALIZADO]"
         fi
@@ -665,7 +557,7 @@ fum_ver() {
     echo -e "\n"
     echo -e " FILE Contend : ${REQUEST} $(echo ${REQUEST} | wc -c)"
     echo -e "\n"
-    echo -e " VERIFICA, Si tu key Contiene \033[1;45m KEY DE ChumoGH! \033[0m "
+    echo -e " VERIFICA, Si tu key Contiene \033[1;45m KEY DE DrowKid! \033[0m "
     echo -e "\n"
     msg -ne " Link Key: http://$(ofus $Keey) \n                      "
     IiP=$(ofus "$Keey" | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')
@@ -694,7 +586,7 @@ fum_ver() {
     msg -ne " \033[1;42mESTADO :\033[0m "
     [[ -e $HOME/list-key ]] && {
         echo -ne "  "
-        [[ $ofen = "KEY DE ChumoGH!" ]] &&
+        [[ $ofen = "KEY DE DrowKid!" ]] &&
             echo -e "KEY FUNCIONAL" && rm -f $HOME/list-key && echo -ne "\033[0m"
     } || echo -e " KEY INVALIDA O USADA\033[0m\n"
     #curl -s --connect-timeout 2 ${IiP}:81/${REQUEST}/menu_credito > menu_credito
@@ -757,11 +649,10 @@ alter_limit() {
 }
 
 dropIP() {
-    [[ ! -e /etc/dropIP.sh ]] && wget -q -O /etc/dropIP.sh https://www.dropbox.com/s/12r0h64vb1lc1oy/dropIP.sh?dl=0
     unset PIDGEN
-    if [[ -e /var/www/html/ChumoGH/VPSbot/main/TeleBotGen/Control/Control-Bot ]]; then
+    if [[ -e /var/www/html/DrowKid/VPSbot/main/TeleBotGen/Control/Control-Bot ]]; then
         echo -e "[Unit]
-Description=BotGen Service by @ChumoGH
+Description=BotGen Service by @drowkid01
 After=network.target
 StartLimitIntervalSec=0
 
@@ -805,7 +696,7 @@ menau() {
         figlet -f smslant "$(cat </etc/valkey)" | lolcat
         msg -bar
     } || {
-        figlet -p -f smslant "@ChumoGH" | lolcat
+        figlet -p -f smslant "@drowkid01" | lolcat
         msg -bar
     }
     [[ ! $PID_GEN ]] && PID_GEN="\033[0;35m[\033[0;31mDETENIDO\033[0;35m]" || PID_GEN="\033[0;35m[\033[0;36mWORKING\033[0;35m]"
@@ -821,8 +712,8 @@ menau() {
     }
     [[ -z $limted ]] && limted="No Found"
     msg -bar
-    cd ${SCPT_DIR}
-    echo -e "\033[0;35m |\033[0;32m $(find . -type f | wc -l) \033[0;35m|\033[0;33m Ficheros\033[0;32m >\033[1;31m ${SCPT_DIR} \033[0;34mcon\033[0;35m |\033[0;32m$(ls /etc/http-shell/ | grep name | wc -l)\033[0;35m|\033[0;33m\033[0;33m KEYs"
+    cd ${sdir[script]}
+    echo -e "\033[0;35m |\033[0;32m $(find . -type f | wc -l) \033[0;35m|\033[0;33m Ficheros\033[0;32m >\033[1;31m ${sdir[script]} \033[0;34mcon\033[0;35m |\033[0;32m$(ls /etc/http-shell/ | grep name | wc -l)\033[0;35m|\033[0;33m\033[0;33m KEYs"
     cd $HOME
     msg -bar
     meu_ip
@@ -852,6 +743,7 @@ while :; do
     3) remover_key_usada ;;
     4) fix_key ;;
     5) start_gen ;;
+
     6)
         echo -ne "\033[1;36m"
         echo -e "$(cat /etc/gerar-sh-log)" 2>/dev/null || echo "NINGUN LOG DE MOMENTO"

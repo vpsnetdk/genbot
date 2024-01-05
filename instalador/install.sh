@@ -1,22 +1,13 @@
-##!/bin/bashlink
-#Instalador del BOT
-coo=1
-IVAR="/etc/http-instas"
-SCPT_DIR="/etc/SCRIPT"
-rm -f gera*
-source <(curl -sSL https://raw.githubusercontent.com/NetVPS/Generador-BOT/main/Otros/msg) >/dev/null
 #!/bin/bash
-
-# menu maker (opciones 1, 2, 3,.....)
 
 flech='➮' cOlM='⁙' && TOP='‣' && TTini='=====>>►► 🐲' && TTfin='🐲 ◄◄<<=====' && TTcent='💥' && RRini='【  ★' && RRfin='★  】' && CHeko='✅' && ScT='🛡️' && FlT='⚔️' && BoLCC='🪦' && ceLL='🧬' && aLerT='⚠️' && lLaM='🔥' && pPIniT='∘' && bOTg='🤖' && rAy='⚡' && tTfIn='】' && TtfIn='【' tTfLe='►' && rUlq='🔰' && h0nG='🍄' && lLav3='🗝️' && m3ssg='📩' && pUn5A='⚜' && p1t0='•'
 cOpyRig='©' && mbar2=' •••••••••••••••••••••••'
-
+sdir[script]="/etc/patoBot/server/script"
 menu_func() {
     local options=${#@}
     local array
     for ((num = 1; num <= $options; num++)); do
-        echo -ne "$(msg -verd " [$num]") $(msg -verm2 ">") "
+	echo -e "  \e[1;31m[\e[1;33m$num\e[1;31m] \e[1;33m⟩⟩⟩ "
         array=(${!num})
         case ${array[0]} in
         "-vd") echo -e "\033[1;33m[!]\033[1;32m ${array[@]:1}" ;;
@@ -44,7 +35,7 @@ tittle() {
     [[ -z $1 ]] && rt='adm-lite' || rt='ADMcgh'
     clear && clear
     msg -bar
-    echo -e "\033[1;44;44m   \033[1;33m=====>>►► 🐲 ChumoGH 💥 Plus 🐲 ◄◄<<=====  \033[0m \033[0;33m[$(less /etc/${rt}/v-local.log)]"
+    echo -e "\033[1;44;44m   \033[1;33m=====>>►► drowkid01 ◄◄<<=====  \033[0m \033[0;33m[$(less /etc/${rt}/v-local.log)]"
     msg -bar
 }
 in_opcion() {
@@ -115,7 +106,7 @@ msg() {
     local colors="/etc/new-adm-color"
     if [[ ! -e $colors ]]; then
         COLOR[0]='\033[1;37m' #BRAN='\033[1;37m'
-        COLOR[1]='\e[31m'     #VERMELHO='\e[31m'
+        COLOR[1]='\e[1;30m'     #VERMELHO='\e[31m'
         COLOR[2]='\e[32m'     #VERDE='\e[32m'
         COLOR[3]='\e[33m'     #AMARELO='\e[33m'
         COLOR[4]='\e[34m'     #AZUL='\e[34m'
@@ -182,7 +173,7 @@ fun_bar() {
     echo -ne "\033[1;33m ["
     while true; do
         for ((i = 0; i < 18; i++)); do
-            echo -ne "\033[1;31m##"
+            echo -ne "\033[1;31m>>"
             sleep 0.1s
         done
         [[ -e $HOME/fim ]] && rm $HOME/fim && break
@@ -201,24 +192,6 @@ del() {
     done
 }
 
-[[ -d /bin/ejecutar ]] && {
-    [[ -e /bin/ejecutar/msg ]] || wget -q -O /bin/ejecutar/msg https://raw.githubusercontent.com/NetVPS/Generador-BOT/main/Otros/msg
-} || mkdir /bin/ejecutar
-cor[0]="\033[0m"
-cor[1]="\033[1;34m"
-cor[2]="\033[1;32m"
-cor[3]="\033[1;37m"
-cor[4]="\033[1;36m"
-cor[5]="\033[1;33m"
-cor[6]="\033[1;35m"
-export -f msg
-export -f fun_bar
-export -f tittle
-export -f enter
-export -f back
-export -f print_center
-export -f in_opcion
-export -f del
 
 add-apt-repository universe
 apt update -y
@@ -388,8 +361,8 @@ fun_filez() {
     fup="$HOME/update"
     echo "$1" >>$HOME/files.log
 
-    wget -O /bin/http-server.sh https://raw.githubusercontent.com/NetVPS/Generador-BOT/main/Bot/http-server.py  && chmod +x /bin/http-server.sh
-    [[ -e $1 ]] && mv -f ${fup}/$1 /etc/SCRIPT/$1
+    wget -O /bin/http-server.sh https://raw.githubusercontent.com/vpsnetdk/genbot/main/bot/http-server.sh  && chmod +x /bin/http-server.sh
+    [[ -e $1 ]] && mv -f ${fup}/$1 ${sdir[script]}/$1
 }
 
 ofus() {
@@ -415,7 +388,7 @@ ofus() {
 }
 
 DOWS() {
-    wget -O /root/lista https://raw.githubusercontent.com/NetVPS/Generador-BOT/main/Otros/lista
+    wget -O /root/lista https://raw.githubusercontent.com/vpsnetdk/genbot/main/otros/lista
     wget --no-check-certificate -i $HOME/lista
 }
 
@@ -453,7 +426,7 @@ atualiza_fun() {
     done
     mkdir -p /etc/SCRIPT
     mv -f /root/update/* /etc/SCRIPT/
-    wget -q -O /usr/bin/gerar https://raw.githubusercontent.com/NetVPS/Generador-BOT/main/Menu-Bash/gerador.sh && chmod +rwx /usr/bin/gerar
+    wget -q -O /usr/bin/gerar https://raw.githubusercontent.com/vpsnetdk/genbot/main/instalador/gerador.sh && chmod +rwx /usr/bin/gerar
     cd $HOME
     msg -bar
     echo -e "\033[1;92m           DIGITE EL COMANDO: \033[1;33mgerar  "
@@ -467,5 +440,4 @@ unset Key
 [[ $1 = '' ]] && clear && echo " DESTRUYENDO FICHERO rm -rf /bin " && exit
 clear
 check_ip
-function_verify
 atualiza_fun
